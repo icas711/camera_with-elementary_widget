@@ -1,19 +1,17 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:native_exif/native_exif.dart';
 import 'package:testtask/main.dart';
 
-
-
 class CheckGPSWidget extends ConsumerStatefulWidget {
   const CheckGPSWidget({super.key});
 
   @override
-  ConsumerState<CheckGPSWidget> createState() =>
-      CheckGPSWidgetState();
+  ConsumerState<CheckGPSWidget> createState() => CheckGPSWidgetState();
 }
 
 class CheckGPSWidgetState extends ConsumerState<CheckGPSWidget> {
@@ -25,58 +23,47 @@ class CheckGPSWidgetState extends ConsumerState<CheckGPSWidget> {
   File? file;
 
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     file = ref.watch(imageToGenerate);
-    exifRead();
+    final exif = exifRead();
     return Scaffold(
-      appBar: AppBar(title: Text('Отправлен')),
+      appBar: AppBar(title: const Text('Метаданные картинки')),
       body: Column(
         children: [
-          Center(child: Text(attributes.toString())),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
-          TextButton(
-              onPressed: () {
-                updateGPS();
-              },
-              child: Text('Set coordinates'))
+        FutureBuilder<String>(
+            future: exif, // a previously-obtained Future<String> or null
+            builder: (context, snapshot) {
+
+
+              return snapshot.hasData ? Center(child: Text(attributes.toString())) : const Text('Нет метаданных');
+
+            }),
+          const SizedBox(
+            height: 16,
+          ),
         ],
       ),
     );
   }
 
-  void updateGPS() async {
-    try {
-      await exif!.writeAttributes({
-        'GPSLatitude': '1.0',
-        'GPSLatitudeRef': 'N',
-        'GPSLongitude': '2.0',
-        'GPSLongitudeRef': 'W',
-      });
-
-      //shootingDate = await exif!.getOriginalDate();
-      attributes = await exif!.getAttributes();
-      coordinates = await exif!.getLatLong();
-      await file!.writeAsBytes(await pickedFile!.readAsBytes());
-      setState(() {});
-    } catch (e) {
-      showError(e);
-    }
-  }
-
-  void exifRead() async {
-
+  Future<String> exifRead() async {
     pickedFile = XFile(file!.path);
     exif = await Exif.fromPath(pickedFile!.path);
     try {
       final imageBytes = await pickedFile!.readAsBytes();
       attributes = await exif!.getAttributes();
       coordinates = await exif!.getLatLong();
-      print(attributes);
+      if (kDebugMode) {
+        print(attributes);
+      }
+
     } catch (e) {
       showError(e);
     }
+    return attributes.toString();
   }
 
   Future<void> showError(Object e) async {
