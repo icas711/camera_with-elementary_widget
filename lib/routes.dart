@@ -39,7 +39,7 @@ final GoRouter router = GoRouter(
                 path: 'request',
                 name: 'request',
                 builder: (context, state) {
-                  return const HttpRequestToServer();
+                  return CheckGPSWidget();
                 },
               ),
             ]),

@@ -8,15 +8,15 @@ import 'package:testtask/main.dart';
 
 
 
-class HttpRequestToServer extends ConsumerStatefulWidget {
-  const HttpRequestToServer({super.key});
+class CheckGPSWidget extends ConsumerStatefulWidget {
+  const CheckGPSWidget({super.key});
 
   @override
-  ConsumerState<HttpRequestToServer> createState() =>
-      HttpRequestToServerState();
+  ConsumerState<CheckGPSWidget> createState() =>
+      CheckGPSWidgetState();
 }
 
-class HttpRequestToServerState extends ConsumerState<HttpRequestToServer> {
+class CheckGPSWidgetState extends ConsumerState<CheckGPSWidget> {
   bool _imgHasLocation = false;
   ExifLatLong? coordinates;
   Map<String, Object>? attributes;
