@@ -16,8 +16,10 @@ void main() async {
   );
 }
 
-final  imageProvider = StateProvider<List<File>>((ref) {return [File("")];});
-final  imageToGenerate = StateProvider<File>((ref) {return File("");});
+final  imageProvider = StateProvider<List<File>>((ref) => [File("")]);
+final  imageToGenerate = StateProvider<File>((ref) => File(""));
+final  aspectRatio = StateProvider<double>((ref) =>1);
+final currentFlashMode=StateProvider<FlashMode>((ref) => FlashMode.auto);
 
 class MyApp extends StatelessWidget  {
   const MyApp({super.key});

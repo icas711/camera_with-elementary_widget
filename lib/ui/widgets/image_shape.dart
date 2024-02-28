@@ -11,13 +11,14 @@ class ImageShape extends StatelessWidget {
   final double finalAngle;
   final GenerateImageWidgetModel wm;
 
-  const ImageShape({required this.size,
+  const ImageShape({
+    required this.size,
     required this.opacity,
     required this.borderRadius,
     required this.finalAngle,
     required this.wm,
-    super.key,});
-
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +27,22 @@ class ImageShape extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         onPanUpdate: (details) {
           Offset centerOfGestureDetector =
-          Offset(constraints.maxWidth / 2, constraints.maxHeight / 2);
+              Offset(constraints.maxWidth / 2, constraints.maxHeight / 2);
           final touchPositionFromCenter =
               details.localPosition - centerOfGestureDetector;
           print(touchPositionFromCenter.direction * 180 / pi);
-wm.setAngle(touchPositionFromCenter.direction);
+          wm.setAngle(touchPositionFromCenter.direction);
           //finalAngle = touchPositionFromCenter.direction;
         },
         child: Transform.rotate(
-            angle: finalAngle,
-            child: SomeShape(
-              width: size.width,
-              height: size.height,
-              opacity: opacity,
-              borderRadius: borderRadius,
-              finalAngle: finalAngle,
-            ),
+          angle: finalAngle,
+          child: SomeShape(
+            width: size.width,
+            height: size.height,
+            opacity: opacity,
+            borderRadius: borderRadius,
+            finalAngle: finalAngle,
+          ),
         ),
       );
     });

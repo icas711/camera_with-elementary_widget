@@ -28,7 +28,7 @@ class SomeShape extends ConsumerWidget {
       borderRadius: BorderRadius.circular(borderRadius),
       child: SizedBox(
         height: height,
-        width: width,
+        width: width/ref.watch(aspectRatio),
         child: Opacity(
           opacity: opacity,
           child://Image.network('https://static01.nyt.com/images/2017/05/18/watching/twin-peaks-watching/twin-peaks-watching-mediumSquareAt3X-v2.jpg',
