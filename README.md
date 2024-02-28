@@ -1,6 +1,12 @@
-# lesson13
+# Flutter
 
-A new Flutter project.
+- take a photo
+- resize, rotate photo
+- add exif with GPS coordinates
+- adaptive design
+
+Попытка изучить Elemetary widgets.
+Для будущего оставил напоминалку: более-менее приличный виджет камеры.
 
 ## Getting Started
 
